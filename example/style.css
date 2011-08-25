@@ -1,0 +1,16 @@
+body {
+	font: 120%/1.8 Georgia, serif; 
+	padding: 2em 4em; /** ahoj */
+	width: 45em;
+}
+
+h1 { font-size: 145%; }
+
+h2 { font-size: 125%; }
+
+div#priklad {
+	border-width: 5px; /** +-3 */
+	border-color: black;
+	border-style: solid;
+	width: 300px; /** +200; 20 */
+}
