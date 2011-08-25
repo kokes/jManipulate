@@ -1,0 +1,18 @@
+# Proč tak děsnej kód?
+
+Sorry, JavaScript moc nepoužívám.
+
+# Proč nejsou slidery a ostatní prvky přes jQuery UI?
+
+Chtěl jsem, aby to bylo co nejjednodušší, tak je to jen přes jQuery.
+
+# Proč to není v OOP, sadě funkcí nebo tak nějak?
+
+Zatím testuju, co s tím půjde a ani nevím, zda se to lidem bude líbit.
+
+# Proč to nefunguje na lokále v Chrome?
+
+Chrome neumí AJAXovat lokální soubory, je to třeba povolit.
+
+Windows: http://stackoverflow.com/questions/5224017/origin-null-is-not-allowed-by-access-control-allow-origin-in-chrome-why
+Mac: předchozí odkaz + http://cweagans.net/blog/2011/1/24/command-line-flags-google-chrome-mac-osx
