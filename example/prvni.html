@@ -1,0 +1,34 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>jManipulate příklad</title>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="style2.css" type="text/css" />
+	
+	
+	<script src='../js/jquery-1.5.2.min.js'></script>
+	<script src='../js/jsman.js'></script>
+	
+	<script type='text/javascript'>
+	$(document).ready(function() {
+		var j = new jMan();
+	});
+	</script>
+	
+</head> 
+<body>	
+	<h1>Skript na jednoduchou manipulaci s CSS vlastnostma &copy;</h1>
+	<p><em>Ideální název se stále hledá.</em></p>
+	<p>Takže o čem to tu je? Přijde mi, že kóder, pokud má možnost zasahovat do designu, nemá příliš mnoho nástrojů na rychlou úpravu CSS stylů, zvlášť pokud chce hodnot vyzkoušet více. Takové WYSIWYG, chcete-li.</p>
+	
+	<p>Na pár příkladech vám tu chci ukázat, co bych si zhruba tak představoval a co by mohlo fungovat. V JavaScriptu jsem naposledy prgal nikdy, takže do kódu spíš nekoukejte.</p>
+	
+	<h2>Základní myšlenka</h2>
+	<p>Kóder přímo v CSS píše změny, které by si představoval a které by chtěl později vidět v reálu a nestará se o nějaký back-end, který vůbec ještě nemusí být napsaný. Všechna hejblátka by měl na starosti JavaScript. Ten projde všechny jeho CSS styly.</p>
+	
+	<h2>Technické řešení</h2>
+	<p>JavaScript sice umí projít všechny CSS stylesheety připojené k dokumentu, nevidí ale přímo komentáře. A ty já bych nejradši využil, protože než specifikovat později, že chci hejbat s <code>div#foo</code>, to si raději napíšu na řádek v CSS. A na to jsou komentáře supr.</p>
+
+</body> 
+</html>

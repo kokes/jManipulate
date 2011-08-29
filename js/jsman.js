@@ -1,9 +1,8 @@
-$(document).ready(function() {
-	
+function jMan() {
 	// generace DIV
-	$("body").append($("<div id='jsman'></div>")); // TODO nastavit id jako promennou
+	$("body").append($("<div id='jman'></div>")); // TODO nastavit id jako promennou
 	
-	var jsmanCSS = {
+	var jmanCSS = {
 		"width" : "400px",
 		"border" : "2px solid #ccc",
 		"background" : "white",
@@ -12,68 +11,76 @@ $(document).ready(function() {
 		"right" : "30px",
 	}
 	
-	var jsmanDIV = $("#jsman");
+	this.mdiv = $("#jman");
 	
-	jsmanDIV.css(jsmanCSS);
+	this.mdiv.css(jmanCSS);
 //	jsmanDIV.draggable(); TODO nahodit jQuery UI?
 	
 	// konec generace DIV
 	
-	$("body").keypress(function(e){
-		if (e.which == 109) {
-			// time for some keypress love
-			jsmanDIV.fadeToggle(200);
-			
+	// exekuce příprav
+	this.toggleSetup();
+	this.loadCSS();
+}
+
+jMan.prototype.toggleSetup = function() {
+	var t = this;
+	$("body").keypress(function(e) {
+		if (e.which == 109) { // TODO změnit klávesu na nastavitelnou?
+			t.mdiv.fadeToggle(200); // TODO nedostanu se na global
 		}
-	}); // konec bindu na "m"
+	});
+}
+
+jMan.prototype.loadCSS = function () {
+	var t = this;
+	this.cssFiles = new Array();
+	this.csc = "";
 	
-	$.get("style.css", function(data) {
-		
-//		console.log(document.styleSheets);
+	$("link[rel=stylesheet]").each(function() {
+		t.cssFiles.push($(this).attr("href")); // TODO přidat @importy
+	});	
 
-		var m, d = new Array(), ar = new Array();
-		var rexp = /([^{}]+?){[^{}]*?([^;{}]+);\s*\/\*\*\s*(.*)?\s*\*\//;
-
-		while(data.match(rexp) != null) {
-			m = data.match(rexp);
-			d.push(new Array($.trim(m[1]), $.trim(m[2]), $.trim(m[3])));
-			data = data.replace(rexp, "");
-		}
-		
-		var curd; // aktualni div, do kteryho nasypu data
-		
-		for(i=0;i<d.length;i++) { // vygenerovat kostru jsman divu
-			console.log(d[i]); // TODO smazat - nebo ne? nechat na debug?
-
-			jsmanDIV.append($("<div class='jsmanPROP' id='jsmpu" + i + "'></div>")
-				.append($("<a href='#'>" + d[i][0] + "</a>"))
-				.append($("<div class='jsmanPROPtoggles'>test</div>")) // todo smazat test
-			);
-		} // for d
-
-		$("div#jsman > div").each(function() {
-			$(this).children(":first-child").click(function() {
-				$(this).siblings().toggle();
-			})			
-		});
-		
-//		for(i=0;i<d.length;i++) { // vygenerovat kostru jsman divu
-//			$("div#jsman " )
-//		}
-		
-		$(".jsmanPROP:nth-child(even)").css("background", "#eee"); // TODO presunout nekam
-		$(".jsmanPROP").css("padding", "4px"); // TODO presunout nekam
-		
-		
-	}); // .get(style)
+	for (var i in this.cssFiles) {
+		$.get(this.cssFiles[i], function(data) {
+			t.parseCSS(data);
+		})
+	}
 	
+}
+
+jMan.prototype.parseCSS = function(data) {
+	
+	var m, d = new Array(), ar = new Array();
+	var rexp = /([^{}]+?){[^{}]*?([^;{}]+);\s*\/\*\*\s*(.*)?\s*\*\//;
+
+	while(data.match(rexp) != null) {
+		m = data.match(rexp);
+		d.push(new Array($.trim(m[1]), $.trim(m[2]), $.trim(m[3])));
+		data = data.replace(rexp, "");
+	}
+	
+	for(var i in d) { // vygenerovat kostru jMan divu
+		console.log(d[i]); // TODO smazat - nebo ne? nechat na debug?
+
+		this.mdiv.append($("<div class='jmanPROP'></div>") // odstraněno -- id='jmpu" + i + "'
+				 .append($("<a href='#'>" + d[i][0] + "</a>"))
+				 .append($("<div class='jmanPROPtoggles'>test</div>")) // todo smazat test
+		);
+	} // for d
 
 	
-//	var r2 = $('#priklad1b');
+	
+}
 
-//	r2.change(function() {
-//		div.css("width", r2.attr('value') + "px");
-//	});
+jMan.prototype.mdivStyle = function() { // TODO nevola se, protoze nevim, jak pockat, az budou data
+	$("div#jman > div").each(function() {
+	$(this).children(":first-child").click(function() {
+			$(this).siblings().toggle();
+		})			
+	});
+
+	$(".jmanPROP:nth-child(even)").css("background", "#eee"); // TODO presunout nekam
+	$(".jmanPROP").css("padding", "4px"); // TODO presunout nekam
 	
-	
-}); // doc.ready
+}
