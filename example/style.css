@@ -2,7 +2,7 @@ body {
 	font: 120%/1.8 Georgia, serif; 
 	padding: 2em; /** +-1 */
 	width: 45em;
-	opacity: 0.7; /** -0.2 */
+	z-index: 10; /** -2 */
 }
 
 h1 { font-size: 145%; }
@@ -15,5 +15,4 @@ div#priklad {
 	border-style: solid;
 	margin: 5px; /** +5 */
 	width: 300px; /** +-200; 20 */
-	opacity: 0.8; /** */
 }

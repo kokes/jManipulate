@@ -99,6 +99,7 @@ jMan.mdivStyle = function() { // možná hodit celý do parseCSS, stejně to neb
 
 jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 	var sel = d[0]; // selektor
+	var slider; // TODO, tady asi bude HTML toho slideru, pro snadnejsi manipulaci
 	var props = new Array(), h = new Array();
 	var ret = "", c; // c as in current, at moc nepisu
 	var m, m2; // matche na ukládání výsledků regexpů
@@ -151,10 +152,26 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 		
 		if (m[1] == "-") {
 			hi = parseFloat(m2[1]);
-			lo = parseFloat(m2[1]) - parseFloat(m[2]); // TODO problém s "nepřesností" floatů
+			lo = parseFloat(m2[1]) - parseFloat(m[2]);
 		}
 		
-		ret += "<input type='range' min='" + lo + "' max='" + hi + "' step='" + step + "' /><br />"; // nejen range, mohly by se hodit i jiný posuvníky
+		hi = Math.round(100*hi)/100; // vse zaokrouhlit na dve desetinna, float "blbne"
+		lo = Math.round(100*lo)/100;
+		step = Math.round(100*step)/100;
+		
+		
+//		slider = "<input type='range' min='" + lo + "' max='" + hi + "' step='" + step + "' /><br />"; // nejen range, mohly by se hodit i jiný posuvníky
+		slider = $("<input>").attr({
+					type : "range",
+					min: lo,
+					max: hi,
+					step: step
+				});
+		ret += $("<div>").append(slider.clone()).remove().html(); // docela vychytaná věc :-) převede Object na html string
+		
+		ret += "<br />";
+
+//		ret = slider;
 		
 	}
 	
