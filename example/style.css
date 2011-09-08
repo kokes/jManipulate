@@ -3,6 +3,7 @@ body {
 	padding: 4em; /** +-4 */
 	width: 45em;
 	margin: 10px; /** +20 */
+	background: #eee;
 }
 
 h1 { font-size: 145%; }
@@ -10,10 +11,12 @@ h1 { font-size: 145%; }
 h2 { font-size: 125%; }
 
 div#priklad {
-	border-width: 5px; /** +-3 */
+	border-width: 3px; /** +-3 */
 	border-color: black;
 	border-style: solid;
 	width: 300px; /** +-200; 20 */
 	height: 200px; /** +100; 10 */
 	margin: 5px; /** +5 */
+	border-radius: 25px; /** +- 20;4 */
+	float: right; /** left */
 }

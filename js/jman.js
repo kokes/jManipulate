@@ -8,12 +8,14 @@ jMan.init = function() { // TODO pridat argumenty
 	$("body").append($("<div id='jman'></div>")); // TODO nastavit id jako promennou
 
 	var jmanCSS = {
-		"width" : "350px",
+		"width" : "300px",
 		"border" : "2px solid #ccc",
 		"background" : "white",
-		"position" : "absolute",
-		"top" : "30px",
-		"right" : "30px",
+		"position" : "fixed",
+		"top" : "5%",
+		"right" : "2%",
+		"height" : "90%",
+		"overflow": "auto"
 	}
 
 	jMan.testvar = "foobar";
@@ -78,7 +80,7 @@ jMan.parseCSS = function(data) {
 	
 	for(var i in d) { // vygenerovat kostru jMan divu
 		jMan.mdiv.append($("<div class='jmanPROP'></div>") // odstraněno -- id='jmpu" + i + "'
-				 .append($("<a href='#'>" + d[i][0] + "</a>"))
+				 .append($("<a href='#'>" + d[i][0] + "</a>").css("display", "block"))
 				 .append($("<div class='jmanPROPtoggles'></div>").css("font-size", "80%") // možná to CSS někam jinam
 					.append(jMan.createToggle(d[i]))
 					)
@@ -108,6 +110,9 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 	var props = new Array(), h = new Array();
 	var ret = "", c; // c as in current, at moc nepisu
 	var m, m2; // matche na ukládání výsledků regexpů
+	var rname; // radio name
+	var rid; // id pro label
+	var radio; // neco jako slider, jen pro radios
 	
 	var hi, lo, step, val; // hodnoty na slider
 
@@ -121,17 +126,12 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 		c = props[i]
 //		console.log(props[i]);
 		ret += "<div><code><span>" + c[0] + "</span>: <span>" + c[1] + "</span>;</code><br />"; // spany na vyparsování těch hodnot
-//		console.log(c[2]);
+
 		
 		if (c[2].trim().length == 0) { // prázdný instrukce
 			// těžko říct, zatim nevim TODO
 			continue;
 		}
-		
-		m2 = c[1].match(/^\s*([0-9\.]+)\s*(.+)?/); // rozparsovani hodnoty na číslo a jednotky, zatim nepocita s vic hodnotama
-												   // m2[2] bude undefined, pokud nejsou jednotky
-		m2[2] = (m2[2] == undefined) ? "" : m2[2];
-//		console.log(m2);
 		
 		m = c[2].match(/([\+-]{1,2})\s*([0-9\.]+);?\s*(.+)?/); // rozparsovani komentare /** */
 															// treti bude undefined, kdyz nebude step nastavenej
@@ -139,10 +139,41 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 		
 		if (m == null) {
 			// nesedí to na +- pattern, tady možná bude prostor na jinou syntax ještě TODO
+			// zatim jedina syntax - alternativní možnosti - radio input
+
+			rname = "jManradio" + parseInt(Math.random()*10000);
+			rid = "jManradio" + parseInt(Math.random()*10000);
+			
+			radio = $("<input>").attr({
+				type: "radio",
+				name: rname,
+				id: rid,
+				rel: sel + ":::" + c[0]
+			});
+			radio = $("<div></div>").append(radio.clone()).remove().html();
+			radio = radio.substring(0, radio.length-1) + " checked />";
+			radio += "<label for='" + rid + "'>" + c[1] + "</label><br />";
+			ret += radio;
+			
+			rid = "jManradio" + parseInt(Math.random()*10000);
+			radio = $("<input>").attr({ // tohle cely prepsat na trochu kompaktnejsi verzi
+				type: "radio",
+				name: rname,
+				id: rid,
+				rel: sel + ":::" + c[0]
+			});
+			radio = $("<div></div>").append(radio.clone()).remove().html();
+			radio += "<label for='" + rid + "'>" + c[2] + "</label>";
+			ret += radio;
+			
 			continue;
 		}
 		
 		// fakt tam je +- nebo + nebo -, můžeme pokračovat:
+		
+		m2 = c[1].match(/^\s*([0-9\.]+)\s*(.+)?/); // rozparsovani hodnoty na číslo a jednotky, zatim nepocita s vic hodnotama
+												   // m2[2] bude undefined, pokud nejsou jednotky
+		m2[2] = (m2[2] == undefined) ? "" : m2[2];
 
 		step = (m[3] == undefined) ? 1 : parseFloat(m[3]); // krokujeme defaultně po jedničce, jinak podle uvedení v komentáři
 											   // TODO co když je jednička moc velká?
@@ -189,27 +220,32 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 
 jMan.makingItWork = function() {
 	var selprop = new Array(); // selektro a property v change()
+	
+	$(jMan.mdiv).find("input[type=range]").css("width", "250px");
+	$(jMan.mdiv).find("label").css("padding-left", "10px");
+	
 	// blok s <code> a <input>
 	// možná tohle všechno pořešim už při generování toho HTML
-	$(jMan.mdiv).find("div div div input").each(function() {
-		//$(this).find("span")
-//		console.log($(this).parent().parent().children("a").text());
+	$(jMan.mdiv).find("div div div input[type=range]").each(function() {
 
-//		sel = $(this).parent().parent().parent().children("a").text(); // TODO asi nebude moc výkonny
-//		vals.push($(this).siblings("code").children("span:first-child").text()); // tohle taky ne
-//		vals.push($(this).siblings("code").children("span:last-child").text());
-		
 		$(this).change(function() {
 			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property, 2 => jednotky
 			selprop[2] = $(this).val() + selprop[2];
 			$(selprop[0]).css(selprop[1], selprop[2]);
 			console.log(selprop);
 			
-			console.log($(this).siblings("code").children("span:last-child").text(selprop[2]));
+			$(this).siblings("code").children("span:last-child").text(selprop[2]);
 			
 		});
+	});
+	
+	$(jMan.mdiv).find("div div div input[type=radio]").each(function() {
+		$(this).change(function() {
+			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property
+			$(selprop[0]).css(selprop[1], $(this).next().text());
+		})
 		
-		vals = new Array();
+		
 	});
 
 	
