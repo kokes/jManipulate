@@ -12,6 +12,7 @@ h2 { font-size: 125%; }
 div#priklad {
 	border-width: 5px; /** +-3 */
 	border-color: black;
+	height: 200px; /** +100; 10 */
 	border-style: solid;
 	margin: 5px; /** +5 */
 	width: 300px; /** +-200; 20 */

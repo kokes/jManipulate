@@ -8,7 +8,7 @@ jMan.init = function() { // TODO pridat argumenty
 	$("body").append($("<div id='jman'></div>")); // TODO nastavit id jako promennou
 
 	var jmanCSS = {
-		"width" : "400px",
+		"width" : "350px",
 		"border" : "2px solid #ccc",
 		"background" : "white",
 		"position" : "absolute",
@@ -29,6 +29,10 @@ jMan.init = function() { // TODO pridat argumenty
 	$("body").keypress(function(e) {
 		if (e.which == 109) { // TODO změnit klávesu na nastavitelnou?
 			t.mdiv.fadeToggle(200); // TODO nedostanu se na global
+		}
+		
+		if (e.which == 116) { // TODO změnit klávesu na nastavitelnou?
+			$(t.mdiv).find("div div").toggle(350); // TODO nedostanu se na global
 		}
 	});
 	
@@ -83,7 +87,8 @@ jMan.parseCSS = function(data) {
 	
 //	$("div.jmanPROPtoggles").toggle(); TODO ODKOMENTOVAT URCITE
 
-	jMan.mdivStyle();	
+	jMan.mdivStyle();
+	jMan.makingItWork(); // je 9 ráno, nejsem moc kreativní co do názvu metod
 }
 
 jMan.mdivStyle = function() { // možná hodit celý do parseCSS, stejně to nebere argumenty
@@ -104,7 +109,7 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 	var ret = "", c; // c as in current, at moc nepisu
 	var m, m2; // matche na ukládání výsledků regexpů
 	
-	var hi, lo, step; // hodnoty na slider
+	var hi, lo, step, val; // hodnoty na slider
 
 	for (i in d[1]) { // projdu jednotlivý vlastnosti a rozkouskuju
 //		console.log(d[1][i].match(rexp));
@@ -115,7 +120,7 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 	for (i in props) {
 		c = props[i]
 //		console.log(props[i]);
-		ret += "<code>" + c[0] + ": " + c[1] + ";</code><br />";
+		ret += "<div><code><span>" + c[0] + "</span>: <span>" + c[1] + "</span>;</code><br />"; // spany na vyparsování těch hodnot
 //		console.log(c[2]);
 		
 		if (c[2].trim().length == 0) { // prázdný instrukce
@@ -124,7 +129,8 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 		}
 		
 		m2 = c[1].match(/^\s*([0-9\.]+)\s*(.+)?/); // rozparsovani hodnoty na číslo a jednotky, zatim nepocita s vic hodnotama
-												   // m2[1] bude undefined, pokud nejsou jednotky
+												   // m2[2] bude undefined, pokud nejsou jednotky
+		m2[2] = (m2[2] == undefined) ? "" : m2[2];
 //		console.log(m2);
 		
 		m = c[2].match(/([\+-]{1,2})\s*([0-9\.]+);?\s*(.+)?/); // rozparsovani komentare /** */
@@ -155,6 +161,8 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 			lo = parseFloat(m2[1]) - parseFloat(m[2]);
 		}
 		
+		val = parseFloat(m2[1]);
+		
 		hi = Math.round(100*hi)/100; // vse zaokrouhlit na dve desetinna, float "blbne"
 		lo = Math.round(100*lo)/100;
 		step = Math.round(100*step)/100;
@@ -165,15 +173,42 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 					type : "range",
 					min: lo,
 					max: hi,
-					step: step
-				});
-		ret += $("<div>").append(slider.clone()).remove().html(); // docela vychytaná věc :-) převede Object na html string
-		
-		ret += "<br />";
+					step: step,
+					rel: sel + ":::" + c[0] + ":::" + m2[2] // body:::padding:::em
+				});		
+		slider = $("<div></div>").append(slider.clone()).remove().html(); // docela vychytaná věc :-) převede Object na html string
+		slider = slider.substr(0,slider.length-1) + ' value="' + val + '" />'; // TODO bohužel JS nějak neumí nastavit value inputu, ale nějak to možná půjde
 
-//		ret = slider;
+		ret += slider; 
 		
+		ret += "</div>";		
 	}
 	
 	return ret;
+}
+
+jMan.makingItWork = function() {
+	var selprop = new Array(); // selektro a property v change()
+	// blok s <code> a <input>
+	// možná tohle všechno pořešim už při generování toho HTML
+	$(jMan.mdiv).find("div div div input").each(function() {
+		//$(this).find("span")
+//		console.log($(this).parent().parent().children("a").text());
+
+//		sel = $(this).parent().parent().parent().children("a").text(); // TODO asi nebude moc výkonny
+//		vals.push($(this).siblings("code").children("span:first-child").text()); // tohle taky ne
+//		vals.push($(this).siblings("code").children("span:last-child").text());
+		
+		$(this).change(function() {
+			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property, 2 => jednotky
+			selprop[2] = $(this).val() + selprop[2];
+			$(selprop[0]).css(selprop[1], selprop[2]);
+			console.log(selprop);
+		});
+		
+		vals = new Array();
+	});
+
+	
+	
 }

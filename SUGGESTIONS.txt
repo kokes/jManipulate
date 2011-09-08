@@ -1,0 +1,6 @@
+Jedna autoload verze, druhá s přepínačema
+
+Možnost nastavit:
+- klávesu na zapnutí vypnutí jMan divu
+- expand all/collapse all
+- vlastní stylování divu
