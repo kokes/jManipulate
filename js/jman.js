@@ -32,7 +32,7 @@ jMan.init = function() { // TODO pridat argumenty
 		}
 		
 		if (e.which == 116) { // TODO změnit klávesu na nastavitelnou?
-			$(t.mdiv).find("div div").toggle(350); // TODO nedostanu se na global
+			$(t.mdiv).find("div div").toggle(100); // TODO nedostanu se na global
 		}
 	});
 	
@@ -204,6 +204,9 @@ jMan.makingItWork = function() {
 			selprop[2] = $(this).val() + selprop[2];
 			$(selprop[0]).css(selprop[1], selprop[2]);
 			console.log(selprop);
+			
+			console.log($(this).siblings("code").children("span:last-child").text(selprop[2]));
+			
 		});
 		
 		vals = new Array();
