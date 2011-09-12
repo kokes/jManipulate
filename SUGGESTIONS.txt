@@ -4,3 +4,7 @@ Možnost nastavit:
 - klávesu na zapnutí vypnutí jMan divu
 - expand all/collapse all
 - vlastní stylování divu
+
+Mapování nějakejch akcí na klávesy — např. řotování více možnostma přes klávesu
+
+iPad verze

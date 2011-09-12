@@ -14,7 +14,7 @@ jMan.init = function() { // TODO pridat argumenty
 		"position" : "fixed",
 		"top" : "5%",
 		"right" : "2%",
-		"height" : "90%",
+		"max-height" : "90%",
 		"overflow": "auto"
 	}
 
@@ -28,7 +28,7 @@ jMan.init = function() { // TODO pridat argumenty
 	// konec generace DIV
 	
 	var t = this;
-	$("body").keypress(function(e) {
+	$(document).keypress(function(e) {
 		if (e.which == 109) { // TODO změnit klávesu na nastavitelnou?
 			t.mdiv.fadeToggle(200); // TODO nedostanu se na global
 		}
@@ -96,7 +96,7 @@ jMan.parseCSS = function(data) {
 jMan.mdivStyle = function() { // možná hodit celý do parseCSS, stejně to nebere argumenty
 	$("div#jman > div").each(function() { // jde nějak to "> div" udělat, když mám div#jman jako objekt?
 	$(this).children(":first-child").click(function() {
-			$(this).siblings().toggle();
+			$(this).siblings().toggle(200);
 		})			
 	});
 
@@ -156,7 +156,7 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 			ret += radio;
 			
 			rid = "jManradio" + parseInt(Math.random()*10000);
-			radio = $("<input>").attr({ // tohle cely prepsat na trochu kompaktnejsi verzi
+			radio = $("<input>").attr({ // TODO tohle cely prepsat na trochu kompaktnejsi verzi a aby to umelo vic enum
 				type: "radio",
 				name: rname,
 				id: rid,
@@ -244,8 +244,6 @@ jMan.makingItWork = function() {
 			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property
 			$(selprop[0]).css(selprop[1], $(this).next().text());
 		})
-		
-		
 	});
 
 	
