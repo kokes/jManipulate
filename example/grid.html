@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>jManipulate example</title>
+	
+	<script src='../js/jquery-1.5.2.min.js'></script>
+	<script src='../js/jman.js'></script>
+	
+	<script type='text/javascript'>
+	$(document).ready(function() {
+		jMan.init();
+	});
+	</script>
+	
+	<style type='text/css'>
+		body {
+			background: #eee;
+			font: 110% Georgia, serif;
+		}
+		div#grid {
+			width: 500px; /** +200;20 */
+		}
+		div.item {
+			border: 1px solid black;
+			border-width: 1px; /** +5 */
+			float: left;
+			width: 100px; /** +-40;5 */
+			height: 70px; /** +-40;5 */
+			padding-top: 30px;
+			text-align: center;
+			margin-right: 5px; /** +5 */
+			margin-bottom: 5px; /** +5 */
+		}
+	</style>
+</head> 
+<body>
+	
+	<div id="grid">
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+		<div class="item">text</div>
+	</div>
+
+</body> 
+</html>
