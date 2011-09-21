@@ -68,6 +68,7 @@ Known imperfections
 - no support for multiple values within a property, say `margin: 4px 2px 2px 3px`
 - not foolproof, won't work with some tricky values that might confuse my regexps
 - all the comments in the `.js` file are in Czech, and there are a lot of them, too many, sorry
+- may not function when some code compression tools are in effect (thank you, T-Mobile)
 
 Future functions
 ---
