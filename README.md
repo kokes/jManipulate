@@ -60,8 +60,11 @@ Compatibility
 Known imperfections
 ---
 
+- the code is fugly, it's true, I'm no JavaScript ninja, but doing the best I can, will welcome criticism
 - no support for `@import` so far
 - no support for multiple values within a property, say `margin: 4px 2px 2px 3px`
+- not foolproof, won't work with some tricky values that might confuse my regexps
+- all the comments in the `.js` file are in Czech, and there are a lot of them, too many, sorry
 
 Future functions
 ---
