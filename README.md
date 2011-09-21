@@ -30,7 +30,9 @@ After that, you're all set, you can get to editing your CSS files. The syntax is
 	}
 
 So far there are two possibilities:
+
 - You can use either `+-`, `+`, or `-` to indicate the direction of the change, followed by the extent of the change (without units) and separated by a semicolon, optional *step* value can be specified (see `width` above).
+
 - With non-numerical values, you can simply state an alternative value you're considering. A `radio` form element will be created for you to choose from the values you specified. Soon you'll be able to specify multiple values using syntax `/** first alternative/second/so forth */`.
 
 Who should/can use this?
