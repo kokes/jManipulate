@@ -48,7 +48,7 @@ jMan.loadCSS = function () {
 	
 	$("link[rel=stylesheet]").each(function() {
 		jMan.cssFiles.push($(this).attr("href")); // TODO přidat @importy
-	});	
+	});
 	for (var i in this.cssFiles) {
 		jMan.tvar = 0;// pomocnej globalni counter
 		$.get(jMan.cssFiles[i], function(data) {
@@ -56,6 +56,10 @@ jMan.loadCSS = function () {
 			if (jMan.tvar == (jMan.cssFiles.length-1)) jMan.parseCSS(jMan.cssData); // u posledního souboru můžu začít parsovat
 			jMan.tvar++;
 		})
+	}
+	
+	if (jMan.cssFiles.length == 0) { // no external CSS files present
+		jMan.parseCSS();
 	}
 }
 
