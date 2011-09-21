@@ -3,6 +3,8 @@ jManipulate - simple, yet effective tool not only for web coding folks
 
 jManipulate is a tiny a JavaScript tool that allows you to see CSS changes in real time, without editing the CSS files manually. After marking which properties you'd like to see change in a WYSIWYG fashion, jManipulate will create a bunch of sliders on your website for you to use. Installation is super simple, see below.
 
+**See it in action [over here](http://dl.dropbox.com/u/5758323/jManipulate/first.html).**
+
 How does it work?
 ---
 
