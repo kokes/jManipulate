@@ -73,6 +73,7 @@ Known imperfections
 Future functions
 ---
 
+- **support for colors** - the problem is that native color pickers are supported only by Opera, so I don't know whether to implement it using a third party library (not a single file anymore) or wait for WebKit support
 - support for empty instructions, where you'd simply append `/** */` and the script will try to figure out how you'd like to change the value
 - possibility to export the changes (in JSON or something like that) and send them to the coder
 - autoload version
