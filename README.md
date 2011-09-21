@@ -40,12 +40,31 @@ Who should/can use this?
 
 Different folks can use this differently. A couple scenarios come to mind:
 
-- **Web coders** - when converting a PSD into HTML and CSS, one might be trapped in an "edit CSS, switch to a browser, reload, think, switch back to the editor" kind of pickle. With jManipulate, you can 
+- **Web coders** - when converting a PSD into HTML and CSS, one might be trapped in an "edit CSS, switch to a browser, reload, think, switch back to the editor" kind of pickle. With jManipulate, you can simplify this process by marking the properties that may be troublesome and where you're unsure about their "correct" value.
+
+- **Project managers** - while you're checking the team's work, you may have some objections and want changes to be made. Instead of overlooking their shoulders, coders can use jManipulate and let you show them easily, what you had in mind.
+
+- **Clients of web design studios** - have you ever called a project manager saying "We'd like the logo to be just a tad higher/lower and the page border to be a bit more visible."? Everyone has. It is often difficult to express yourself and if the studio does implement jManipulate, you can be in charge of the changes you'd like to make. No coding skills required.
+It can even be used *on-site*, so that you can discuss the design changes while actually making them!
 
 Compatibility
 ---
 
+- **Webkit browsers (Safari, Chrome)** - no problems, works like a charm.
+- **Mozilla Firefox** - doesn't support some HTML 5 form elements, so instead of sliders, you only get textfields. So it works, but not as comfortably as it could.
+- **Opera** - TBA
+- **Internet Explorer** - no clue so far, sorry, Mac fag here.
+
+**Attention:** as jManipulate uses AJAX, it doesn't work in Firefox and Chrome using the `file://` protocol - or simply opening the HTML files in your browsers. In order to use it in these browsers, you need to either enable AJAX locally, or use jManipulate using `http`, that is e.g. `localhost` or a remote web server.
+
 Known imperfections
 ---
 
+- no support for `@import` so far
+- no support for multiple values within a property, say `margin: 4px 2px 2px 3px`
+
 Future functions
+---
+
+- autoload version
+- settings to adjust the behavior of jManipulate -- key mapping, custom styling
