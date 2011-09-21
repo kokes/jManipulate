@@ -61,6 +61,7 @@ Known imperfections
 ---
 
 - the code is fugly, it's true, I'm no JavaScript ninja, but doing the best I can, will welcome criticism
+- *cannot use values with decimal points*
 - no support for `@import` so far
 - no support for multiple values within a property, say `margin: 4px 2px 2px 3px`
 - not foolproof, won't work with some tricky values that might confuse my regexps
@@ -69,5 +70,7 @@ Known imperfections
 Future functions
 ---
 
+- support for empty instructions, where you'd simply append `/** */` and the script will try to figure out how you'd like to change the value
+- possibility to export the changes (in JSON or something like that) and send them to the coder
 - autoload version
 - settings to adjust the behavior of jManipulate -- key mapping, custom styling

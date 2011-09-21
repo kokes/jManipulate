@@ -2,21 +2,34 @@ body {
 	font: 120%/1.8 Georgia, serif; 
 	padding: 4em; /** +-4 */
 	width: 45em; /** +10 */
-	margin: 10px; /** +20 */
 	background: #eee;
+	border: 1em solid #ccc;
+	min-height: 20em; /** +20;2 */
 }
 
-h1 { font-size: 145%; /** +-20;5 */}
+h1 {
+	margin-top: -1em;
+	margin-bottom: 0em; /** +-3 */
+	font-size: 145%; /** +-20;5 */
+}
 
-h2 { font-size: 125%; /** +-30;5 */}
+p {
+	width: 70%;
+	line-height: 140%; /** +-100;10 */
+}
 
-div#priklad {
+h2 {
+	font-size: 125%; /** +-30;5 */
+	margin-bottom: 0;
+}
+
+div#example {
+	padding: 0 1em;
 	border-width: 3px; /** +-3 */
 	border-color: black;
 	border-style: solid;
 	width: 300px; /** +-200; 20 */
 	height: 200px; /** +100; 10 */
-	margin: 5px; /** +5 */
 	border-radius: 25px; /** +- 20;4 */
-	float: right; /** left */
+	float: left; /** right */
 }

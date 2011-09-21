@@ -219,7 +219,7 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 }
 
 jMan.makingItWork = function() {
-	var selprop = new Array(); // selektro a property v change()
+	var selprop = new Array(); // selektor a property v change()
 	
 	$(jMan.mdiv).find("input[type=range]").css("width", "250px");
 	$(jMan.mdiv).find("label").css("padding-left", "10px");
