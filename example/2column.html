@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>jManipulate example</title>
+	
+	<script src='../js/jquery-1.5.2.min.js'></script>
+	<script src='../js/jman.js'></script>
+	
+	<script type='text/javascript'>
+	$(document).ready(function() {
+		jMan.init();
+	});
+	</script>
+	
+	<style type='text/css'>
+#container
+{
+	margin: 0 auto;
+	width: 900px;
+	background: #fff;
+}
+
+#header
+{
+	background: #ccc;
+	padding: 20px; /** +-10 */
+	text-align: left; /** right */
+}
+
+#header h1 { margin: 0; }
+
+#navigation
+{
+	float: left;
+	width: 900px;
+	background: #333;
+}
+
+#navigation ul
+{
+	margin: 0;
+	padding: 0;
+}
+
+#navigation ul li
+{
+	list-style-type: none;
+	display: inline;
+}
+
+#navigation li a
+{
+	display: block;
+	float: left;
+	padding: 5px 10px;
+	color: #fff;
+	text-decoration: none; /** underline */
+	border-right: 1px solid #fff;
+}
+
+#navigation li a:hover { background: #383; }
+
+#content-container
+{
+	float: left;
+	width: 900px;
+	background: #fff url(layout-two-fixed-background.gif) repeat-y 100% 0;
+	background-position: top right; /** top left */
+}
+
+#content
+{
+	clear: left;
+	float: left; /** right */
+	width: 560px;
+	padding: 20px 0;
+	margin: 0 0 0 30px;
+	display: inline;
+}
+
+#content h2 { margin:0; margin-bottom: 0px; /** +60;20 */}
+
+#content p {
+	line-height: 1.4; /** +-1; 0.1 */
+}
+
+#aside
+{
+	float: right;
+	width: 240px;
+	padding: 20px 0;
+	margin: 0 20px 0 0;
+	display: inline;
+}
+
+#aside h3 { margin: 0; }
+
+#footer
+{
+	clear: both;
+	background: #ccc; /** #ddd */
+	text-align: right; /** left */
+	padding: 20px;
+	height: 1%;
+}
+	</style>
+</head> 
+<body>	
+	<div id="container">
+	<div id="header">
+		<h1>
+			Site name
+		</h1>
+	</div>
+	<div id="navigation">
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Services</a></li>
+			<li><a href="#">Contact us</a></li>
+		</ul>
+	</div>
+	<div id="content-container">
+		<div id="content">
+			<h2>
+				Page heading
+			</h2>
+			<p>
+				Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+			</p>
+			<p>
+				Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+			</p>
+			<p>
+				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+			</p>
+		</div>
+		<div id="aside">
+			<h3>
+				Aside heading
+			</h3>
+			<p>
+				Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan.
+			</p>
+		</div>
+		<div id="footer">
+			Copyright © Site name, 20XX
+		</div>
+	</div>
+</div>
+
+<div style="clear: both;padding-top: 25px;">This is a template from <a href="http://www.maxdesign.com.au/articles/css-layouts/two-fixed/">Max Design</a></div>
+
+</body> 
+</html>

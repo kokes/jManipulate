@@ -3,7 +3,11 @@ jManipulate - simple, yet effective tool not only for web coding folks
 
 jManipulate is a tiny a JavaScript tool that allows you to see CSS changes in real time, without editing the CSS files manually. After marking which properties you'd like to see change in a WYSIWYG fashion, jManipulate will create a bunch of sliders on your website for you to use. Installation is super simple, see below.
 
-**See it in action [over here](http://ondrejk.github.com/jManipulate/example/first.html).**
+**See it in action [over here](http://ondrejk.github.com/jManipulate/example/2column.html).**
+
+First things first -- people ask me "Gee, why should I use this and not Firebug? That let's me change all the properties I want." The answer is as follows: jManipulate let's you select specific elements and specific properties so that you mess around only with what you really want. And anyone can, without using any browser extensions or bookmarklets. It's also more convenient if you change multiple things. In Firebug, you need to find the separate elements and then change them.
+
+Also, this is only a working concept, a pre-alpha if you will.
 
 How does it work?
 ---
@@ -24,18 +28,19 @@ After that, you're all set, you can get to editing your CSS files. The syntax is
 		margin: 10px; /** +-5 */
 		padding: 2em; /** +3 */
 		border-style: solid; /** dashed */
-		border-color: black
+		border-color: black;
 		border-width: 3px; /** -2 */
 		
 		width: 250px; /** +-100; 10 */
 		float: left; /** right */
+		background-color: black; /** blue/red/yellow */
 	}
 
 So far there are two possibilities:
 
 - You can use either `+-`, `+`, or `-` to indicate the direction of the change, followed by the extent of the change (without units) and separated by a semicolon, optional *step* value can be specified (see `width` above).
 
-- With non-numerical values, you can simply state an alternative value you're considering. A `radio` form element will be created for you to choose from the values you specified. Soon you'll be able to specify multiple values using syntax `/** first alternative/second/so forth */`.
+- With non-numerical values, you can simply state an alternative value you're considering. A `radio` form element will be created for you to choose from the values you specified. You can also specify multiple values using the following syntax: `/** first alternative/second/so forth */`.
 
 Who should/can use this?
 ---
@@ -57,18 +62,16 @@ Compatibility
 - **Opera** - TBA
 - **Internet Explorer** - no clue so far, sorry, Mac fag here.
 
-**Attention:** as jManipulate uses AJAX, it doesn't work in Firefox and Chrome using the `file://` protocol - or simply opening the HTML files in your browsers. In order to use it in these browsers, you need to either enable AJAX locally, or use jManipulate using `http`, that is e.g. `localhost` or a remote web server.
+**Attention:** as jManipulate uses AJAX, it doesn't work in Firefox and Chrome using the `file://` protocol - simply opening the HTML files in your browsers. In order to use it in these browsers, you need to either enable AJAX locally, or use jManipulate using the `http` protocol, that is e.g. `localhost` or a remote web server.
 
 Known imperfections
 ---
 
-- the code is fugly, it's true, I'm no JavaScript ninja, but doing the best I can, will welcome criticism
+- the code is fugly, it's true, I'm no JavaScript programmer, but doing the best I can, will welcome criticism
 - *cannot use values with decimal points*
 - no support for `@import` so far
 - no support for multiple values within a property, say `margin: 4px 2px 2px 3px`
-- not foolproof, won't work with some tricky values that might confuse my regexps
-- all the comments in the `.js` file are in Czech, and there are a lot of them, too many, sorry
-- may not function when some code compression tools are in effect (thank you, T-Mobile)
+- not foolproof, won't work with some tricky values that might confuse my regexps (say values in `content`)
 
 Future functions
 ---

@@ -1,10 +1,10 @@
 body {
 	font: 120%/1.8 Georgia, serif; 
-	padding: 4em; /** +-4 */
-	width: 45em; /** +10 */
+	padding: 4em;
+	width: 45em;
 	background: #eee;
 	border: 1em solid #ccc;
-	min-height: 20em; /** +20;2 */
+	min-height: 20em;
 }
 
 h1 {
@@ -15,21 +15,23 @@ h1 {
 
 p {
 	width: 70%;
-	line-height: 140%; /** +-100;10 */
+	line-height: 140%;
 }
 
 h2 {
-	font-size: 125%; /** +-30;5 */
+	font-size: 125%;
 	margin-bottom: 0;
 }
 
 div#example {
 	padding: 0 1em;
-	border-width: 3px; /** +-3 */
+	border-width: 3px;
 	border-color: black;
 	border-style: solid;
-	width: 300px; /** +-200; 20 */
+	width: 300px;
 	height: 200px; /** +100; 10 */
 	border-radius: 25px; /** +- 20;4 */
-	float: left; /** right */
+	float: left; /** right/none */
+	z-index: 5; /** 3 */
+	background-color: white; /** blue/red/yellow */
 }
