@@ -2,10 +2,10 @@ function jMan() {
 
 }
 
-jMan.init = function() { // TODO pridat argumenty
-	// generace DIV
+jMan.init = function() { // TODO add arguments?
+	// generating divs
 	
-	$("body").append($("<div id='jman'></div>")); // TODO nastavit id jako promennou
+	$("body").append($("<div id='jman'></div>"));
 
 	var jmanCSS = {
 		"width" : "300px",
@@ -18,23 +18,20 @@ jMan.init = function() { // TODO pridat argumenty
 		"overflow": "auto"
 	}
 
-	jMan.testvar = "foobar";
-
 	jMan.mdiv = $("#jman");
 
 	jMan.mdiv.css(jmanCSS);
-	//	jsmanDIV.draggable(); TODO nahodit jQuery UI?
 
-	// konec generace DIV
+	// ending generating of divs
 	
 	var t = this;
 	$(document).keypress(function(e) {
-		if (e.which == 109) { // TODO změnit klávesu na nastavitelnou?
+		if (e.which == 109) { // 109 is m; TODO - let the user choose this
 			t.mdiv.fadeToggle(200); // TODO nedostanu se na global
 		}
 		
-		if (e.which == 116) { // TODO změnit klávesu na nastavitelnou?
-			$(t.mdiv).find("div div").toggle(100); // TODO nedostanu se na global
+		if (e.which == 116) { // 116 is t; TODO - let the user choose this
+			$(t.mdiv).find("div div").toggle(200); // TODO only closes, didn't investigate
 		}
 	});
 	
@@ -47,13 +44,13 @@ jMan.loadCSS = function () {
 	jMan.cssData = "";
 	
 	$("link[rel=stylesheet]").each(function() {
-		jMan.cssFiles.push($(this).attr("href")); // TODO přidat @importy
+		jMan.cssFiles.push($(this).attr("href")); // TODO add @imports
 	});
 	for (var i in this.cssFiles) {
-		jMan.tvar = 0;// pomocnej globalni counter
+		jMan.tvar = 0; // global counter
 		$.get(jMan.cssFiles[i], function(data) {
 			jMan.cssData += data;
-			if (jMan.tvar == (jMan.cssFiles.length-1)) jMan.parseCSS(jMan.cssData); // u posledního souboru můžu začít parsovat
+			if (jMan.tvar == (jMan.cssFiles.length-1)) jMan.parseCSS(jMan.cssData);
 			jMan.tvar++;
 		})
 	}
@@ -65,10 +62,10 @@ jMan.loadCSS = function () {
 
 jMan.parseCSS = function(data) {
 
-	data += $('style').text(); // pridani obsahu <style>
+	data += $('style').text(); // add contents of <style>
 	
 	var m, s, d = new Array(), ar = new Array();
-//	var rexp = /([^{}]+?){[^{}]*?([^:;{}]+):\s*([^;{}]+);\s*\/\*\*\s*(.*)?\s*\*\//;
+//	var rexp = /([^{}]+?){[^{}]*?([^:;{}]+):\s*([^;{}]+);\s*\/\*\*\s*(.*)?\s*\*\*?\//;
 //	var rexp = /([^{}\/]+?)\s*{[^{}]*?\s*([^:;{}]+):\s*([^;{}]+);\s*\/\*\*\s*(.*?)?\s*\*\//g;
 	var rexp = /([^\/\*{}]+){[^}]*}/g;
 	var rexp2 = /[^:;{}]+:\s*[^;{}]+;\s*\/\*\*\s*(.*)?\s*\*\//g;
@@ -83,69 +80,68 @@ jMan.parseCSS = function(data) {
 	}
 	
 	for(var i in d) { // vygenerovat kostru jMan divu
-		jMan.mdiv.append($("<div class='jmanPROP'></div>") // odstraněno -- id='jmpu" + i + "'
+		jMan.mdiv.append($("<div class='jmanPROP'></div>")
 				 .append($("<a href='#'>" + d[i][0] + "</a>").css("display", "block"))
-				 .append($("<div class='jmanPROPtoggles'></div>").css("font-size", "80%") // možná to CSS někam jinam
+				 .append($("<div class='jmanPROPtoggles'></div>").css("font-size", "80%")
 					.append(jMan.createToggle(d[i]))
 					)
 		);
 	} // for d
 	
-//	$("div.jmanPROPtoggles").toggle(); TODO ODKOMENTOVAT URCITE
+//	$("div.jmanPROPtoggles").toggle(); // collapses all settings; useful when adjusting a lot of properties; TODO - make it a setting
 
 	jMan.mdivStyle();
-	jMan.makingItWork(); // je 9 ráno, nejsem moc kreativní co do názvu metod
+	jMan.makingItWork(); // it's early in the morning, not very creative
 }
 
-jMan.mdivStyle = function() { // možná hodit celý do parseCSS, stejně to nebere argumenty
-	$("div#jman > div").each(function() { // jde nějak to "> div" udělat, když mám div#jman jako objekt?
+jMan.mdivStyle = function() { // maybe move over to parseCSS, not taking any input anyway
+	$("div#jman > div").each(function() { // TODO replace with t.mdiv
 	$(this).children(":first-child").click(function() {
 			$(this).siblings().toggle(200);
 		})			
 	});
 
-	$(".jmanPROP:nth-child(even)").css("background", "#eee"); // TODO presunout nekam
-	$(".jmanPROP").css("padding", "3px 5px 1px 8px"); // TODO presunout nekam	
+	$(".jmanPROP:nth-child(even)").css("background", "#eee"); // TODO move somewhere
+	$(".jmanPROP").css("padding", "3px 5px 1px 8px"); // TODO move somewhere
 }
 
-jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
-	var sel = d[0]; // selektor
-	var slider; // TODO, tady asi bude HTML toho slideru, pro snadnejsi manipulaci
+jMan.createToggle = function(d) { // returns HTML that controls our CSS code
+	var sel = d[0]; // selector
+	var slider;
 	var props = new Array(), h = new Array();
-	var ret = "", c; // c as in current, at moc nepisu
-	var m, m2; // matche na ukládání výsledků regexpů
+	var ret = "", c; // c as in current
+	var m, m2; // regexp matches
 	var rname; // radio name
-	var rid; // id pro label
-	var radio; // neco jako slider, jen pro radios
+	var rid; // id for labels
+	var radio;
 	
-	var hi, lo, step, val; // hodnoty na slider
+	var hi, lo, step, val; // values for our sliders
 
-	for (i in d[1]) { // projdu jednotlivý vlastnosti a rozkouskuju
+	for (i in d[1]) { // looping through comments and parsing
 //		console.log(d[1][i].match(rexp));
 		h = d[1][i].match(/^\s*([^:]+):\s*([^;]+);\s*\/\*\*\s*(.+?)\s*\*\//);
-		props.push(new Array(h[1], h[2], h[3])); // jmeno vlastnosti, hodnota a obsah komentáře
+		props.push(new Array(h[1], h[2], h[3])); // property name, value, comment contents
 	}
 	
 	for (i in props) {
 		c = props[i]
 //		console.log(props[i]);
-		ret += "<div><code><span>" + c[0] + "</span>: <span>" + c[1] + "</span>;</code><br />"; // spany na vyparsování těch hodnot
+		ret += "<div><code><span>" + c[0] + "</span>: <span>" + c[1] + "</span>;</code><br />";
 
 		
-		if (c[2].trim().length == 0) { // prázdný instrukce
-			// těžko říct, zatim nevim TODO
+		if (c[2].trim().length == 0) { // no instructions
+			// TODO Anything to do here? Probably not
 			continue;
 		}
 		
-		m = c[2].match(/([\+-]{1,2})\s*([0-9\.]+);?\s*(.+)?/); // rozparsovani komentare /** */
-															// treti bude undefined, kdyz nebude step nastavenej
+		m = c[2].match(/([\+-]{1,2})\s*([0-9\.]+);?\s*(.+)?/); // Parsing the comment, neglecting the possibility of ++, --, or -+
+															   // third part will be undefined if left empty
 //		console.log(m);
 		
 		if (m == null) {
-			// nesedí to na +- pattern, tady možná bude prostor na jinou syntax ještě TODO
-			// zatim jedina syntax - alternativní možnosti - radio input
+			// no +-/+/- syntax, so investigating further
 
-			rname = "jManradio" + parseInt(Math.random()*10000);
+			rname = "jManradio" + parseInt(Math.random()*10000); // this is just plain stupid, all of this
 			rid = "jManradio" + parseInt(Math.random()*10000);
 			
 			radio = $("<input>").attr({
@@ -158,32 +154,37 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 			radio = radio.substring(0, radio.length-1) + " checked />";
 			radio += "<label for='" + rid + "'>" + c[1] + "</label><br />";
 			ret += radio;
+
+			var poss = c[2].split(/\//); // are there more values separated by /?
 			
-			rid = "jManradio" + parseInt(Math.random()*10000);
-			radio = $("<input>").attr({ // TODO tohle cely prepsat na trochu kompaktnejsi verzi a aby to umelo vic enum
-				type: "radio",
-				name: rname,
-				id: rid,
-				rel: sel + ":::" + c[0]
-			});
-			radio = $("<div></div>").append(radio.clone()).remove().html();
-			radio += "<label for='" + rid + "'>" + c[2] + "</label>";
-			ret += radio;
+			for (j in poss) {
+				rid = "jManradio" + parseInt(Math.random()*10000);
+				radio = $("<input>").attr({
+					type: "radio",
+					name: rname,
+					id: rid,
+					rel: sel + ":::" + c[0]
+				});
+				radio = $("<div></div>").append(radio.clone()).remove().html();
+				radio += "<label for='" + rid + "'>" + poss[j] + "</label><br />";
+				ret += radio;
+			}
+
+			// TODO - what if colors are being adjusted? Make a special UI element for it
 			
 			continue;
 		}
 		
-		// fakt tam je +- nebo + nebo -, můžeme pokračovat:
+		// +- is there, continue:
 		
-		m2 = c[1].match(/^\s*([0-9\.]+)\s*(.+)?/); // rozparsovani hodnoty na číslo a jednotky, zatim nepocita s vic hodnotama
-												   // m2[2] bude undefined, pokud nejsou jednotky
+		m2 = c[1].match(/^\s*([0-9\.]+)\s*(.+)?/); // parsing value and units
+												   // m2[2] is undefined if no units used
 		m2[2] = (m2[2] == undefined) ? "" : m2[2];
 
-		step = (m[3] == undefined) ? 1 : parseFloat(m[3]); // krokujeme defaultně po jedničce, jinak podle uvedení v komentáři
-											   // TODO co když je jednička moc velká?
+		step = (m[3] == undefined) ? 1 : parseFloat(m[3]); // default step is 1; TODO - what if 1 is too big (e.g. opacity)
 		if (m[1] == "+-") {
-			hi = parseFloat(m2[1]) + parseFloat(m[2]); // hodnota z CSS + vůle
-			lo = parseFloat(m2[1]) - parseFloat(m[2]); // dtto
+			hi = parseFloat(m2[1]) + parseFloat(m[2]);
+			lo = parseFloat(m2[1]) - parseFloat(m[2]);
 		}
 		
 		if (m[1] == "+") {
@@ -198,21 +199,21 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 		
 		val = parseFloat(m2[1]);
 		
-		hi = Math.round(100*hi)/100; // vse zaokrouhlit na dve desetinna, float "blbne"
+		hi = Math.round(100*hi)/100; // float does not return precise values, rounding; TODO - make it more elegant
 		lo = Math.round(100*lo)/100;
 		step = Math.round(100*step)/100;
 		
 		
-//		slider = "<input type='range' min='" + lo + "' max='" + hi + "' step='" + step + "' /><br />"; // nejen range, mohly by se hodit i jiný posuvníky
+//		slider = "<input type='range' min='" + lo + "' max='" + hi + "' step='" + step + "' /><br />";
 		slider = $("<input>").attr({
 					type : "range",
 					min: lo,
 					max: hi,
 					step: step,
-					rel: sel + ":::" + c[0] + ":::" + m2[2] // body:::padding:::em
+					rel: sel + ":::" + c[0] + ":::" + m2[2] // e.g. body:::padding:::em
 				});		
-		slider = $("<div></div>").append(slider.clone()).remove().html(); // docela vychytaná věc :-) převede Object na html string
-		slider = slider.substr(0,slider.length-1) + ' value="' + val + '" />'; // TODO bohužel JS nějak neumí nastavit value inputu, ale nějak to možná půjde
+		slider = $("<div></div>").append(slider.clone()).remove().html(); // Object -> string in HTML
+		slider = slider.substr(0,slider.length-1) + ' value="' + val + '" />';
 
 		ret += slider; 
 		
@@ -223,17 +224,16 @@ jMan.createToggle = function(d) { // vrati HTML, kterym se bude ovladat to CSS
 }
 
 jMan.makingItWork = function() {
-	var selprop = new Array(); // selektor a property v change()
+	var selprop = new Array(); // selector and property
 	
 	$(jMan.mdiv).find("input[type=range]").css("width", "250px");
 	$(jMan.mdiv).find("label").css("padding-left", "10px");
 	
-	// blok s <code> a <input>
-	// možná tohle všechno pořešim už při generování toho HTML
+	// piece with <code> and <input>
 	$(jMan.mdiv).find("div div div input[type=range]").each(function() {
 
 		$(this).change(function() {
-			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property, 2 => jednotky
+			selprop = $(this).attr("rel").split(":::"); // 0 => selector, 1 => property, 2 => units
 			selprop[2] = $(this).val() + selprop[2];
 			$(selprop[0]).css(selprop[1], selprop[2]);
 			console.log(selprop);
@@ -245,11 +245,9 @@ jMan.makingItWork = function() {
 	
 	$(jMan.mdiv).find("div div div input[type=radio]").each(function() {
 		$(this).change(function() {
-			selprop = $(this).attr("rel").split(":::"); // 0 => selektor, 1 => property
-			$(selprop[0]).css(selprop[1], $(this).next().text());
+			selprop = $(this).attr("rel").split(":::"); // 0 => selector, 1 => property
+			$(selprop[0]).css(selprop[1], $(this).next().text()); // TODO rewrite to animate the change
 		})
-	});
-
-	
+	});	
 	
 }
