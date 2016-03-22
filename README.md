@@ -1,3 +1,3 @@
 *Just for nostalgic purposes. I created this at a time when I still coded sites, but interacted quite heavily with non-technical people higher up. Their requirements, often bypassing designers, were of the kind 'can you move this ten pixels to the right?' and there was a lot of iteration. I thought it'd be handy to have a tool that would allow anyone to tinker with basic CSS without imposing any limits on the developer or the user. This predates preprocessors shenanigans and other recent fades in the coding sphere, as is obvious from the technical specs.*
 
-Check the [original README](blob/master/README-orig.md) for more info.
+Check the [original README](README-orig.md) for more info.
